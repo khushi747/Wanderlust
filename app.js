@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const Listing = require("./Models/listing");
 const app = express();
+const path = require("path");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 async function main() {
@@ -19,19 +20,6 @@ main()
 
 app.get("/", (req, res) => {
   res.send("Hello World from root");
-});
-
-app.get("/testListings", async (req, res) => {
-  let sampleListing = new listing({
-    title: "Sample Listing",
-    description: "This is a sample listing",
-    price: 100,
-    location: "Sample Location",
-    country: "Sample Country",
-  });
-  await sampleListing.save();
-  console.log("Sample listing saved to database");
-  res.send("Sample listing saved to database");
 });
 
 app.listen(8080, () => {
