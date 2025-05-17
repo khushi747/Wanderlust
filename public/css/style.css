@@ -101,3 +101,15 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
+
+/* Show Listing Page */
+.show-img {
+  height: 30vh;
+}
+
+.btns {
+  display: flex;
+  justify-items: start;
+  gap:1rem;
+}
+
