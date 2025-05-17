@@ -24,8 +24,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true })); // allows us to parse data from request body or url
 app.use(methodOverride("_method")); // allows us to use PUT and DELETE requests
-app.engine("ejs", ejsMate); // allows us to use ejs-mate for layout
-app.use(express.static(path.join(__dirname, "public"))); //allows us to use static files from public folder
+app.engine("ejs", ejsMate); // tell Express to use ejs-mate for .ejs files
+app.use(express.static(path.join(__dirname, "public"))); //allows us to use static files from public folder, so now href="/css/styles.css" = herf="/public/css/styles.css"
 
 app.get("/", (req, res) => {
   res.send("Hello World from root");
