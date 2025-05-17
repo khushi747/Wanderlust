@@ -16,7 +16,20 @@ async function main() {
 
 const initDB = async () => {
   await Listing.deleteMany({});
-  await Listing.insertMany(initData.data);
+
+  const transformedData = initData.data.map((listing) => {
+    return {
+      title: listing.title,
+      description: listing.description,
+      image: listing.image.url, // Extract just the URL
+      price: listing.price,
+      location: listing.location,
+      country: listing.country,
+    };
+  });
+  console.log("Sample transformed item:", transformedData[0]);
+
+  await Listing.insertMany(transformedData);
   console.log("Database initialized with sample data");
 };
 
