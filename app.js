@@ -18,7 +18,7 @@ main()
     console.log("Error connecting to MongoDB", err);
   });
 
-app.set("view engine", "ejs");
+app.set("view engine", "ejs"); 
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
