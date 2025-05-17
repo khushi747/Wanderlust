@@ -7,11 +7,12 @@
   </head>
   <body>
     <h3>Listing Details</h3>
-    <h4><%= listing.title %></h4>
-    <p><%= listing.description %></p>
+    <h4>Title: <%= listing.title %></h4>
+    <p>Description: <%= listing.description %></p>
     <p>Price: &#8377 <%= listing.price.toLocaleString("en-IN") %></p>
     <p>Location: <%= listing.location %></p>
-    <p>Contact: <%= listing.contact %></p>
+    <p>Image: <%= listing.image %></p>
+    <a href="/listings/<%= listing._id %>/edit">Edit Listing</a>
     <a href="/listings">Back to Listings</a>
   </body>
 </html>
