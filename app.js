@@ -8,6 +8,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
+const e = require("express");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 async function main() {
@@ -34,6 +35,16 @@ app.get("/", (req, res) => {
   res.send("Hello World from root");
 });
 
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
 //INDEX ROUTE
 app.get(
   "/listings",
@@ -50,11 +61,8 @@ app.get("/listings/new", (req, res) => {
 //CREATE ROUTE
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -84,10 +92,8 @@ app.get(
 //UPDATE ROUTE
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Send valid data for listing");
-    }
     const { id } = req.params;
     const listing = await Listing.findByIdAndUpdate(id, {
       ...req.body.listing,
