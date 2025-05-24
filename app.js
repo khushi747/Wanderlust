@@ -11,6 +11,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 async function main() {
@@ -31,7 +32,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true })); // allows us to parse data from request body or url
 app.use(methodOverride("_method")); // allows us to use PUT and DELETE requests
 app.engine("ejs", ejsMate); // tell Express to use ejs-mate for .ejs files
-app.use(express.static(path.join(__dirname, "public"))); //allows us to use static files from public folder, so now href="/css/styles.css" = herf="/public/css/styles.css"
+app.use(express.static(path.join(__dirname, "public"))); 
+
+const sessionOptions = {
+  secret: "mysecretsupercode",
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
   res.send("Hello World from root");
