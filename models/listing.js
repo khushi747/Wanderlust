@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
-
+const Review = require("./review");
 const listingSchema = new schema({
   title: {
     type: String,
@@ -20,10 +20,23 @@ const listingSchema = new schema({
   price: Number,
   location: String,
   country: String,
-  reviews:[{
-    type: schema .Types.ObjectId,
-    ref: "Review",
-  }]
+  reviews: [
+    {
+      type: schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+});
+
+//Middleware to delete reviews when a listing is deleted
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await Review.deleteMany({
+      _id: {
+        $in: listing.reviews,
+      },
+    });
+  }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);
