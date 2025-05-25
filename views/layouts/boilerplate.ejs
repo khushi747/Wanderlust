@@ -24,8 +24,10 @@
   </head>
   <body>
     <%- include('../includes/navbar.ejs') %>
-    <!--used EJS includes to add reusable components (like headers, footers, or navbars) into my boilerplate layout. -->
-    <div class="container"><%-body%></div>
+    <div class="container">
+      <%- include('../includes/flash.ejs') %>
+      <%- body %>
+    </div>
     <%- include('../includes/footer.ejs') %>
 
     <script

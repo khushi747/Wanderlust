@@ -12,6 +12,7 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 async function main() {
@@ -32,7 +33,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true })); // allows us to parse data from request body or url
 app.use(methodOverride("_method")); // allows us to use PUT and DELETE requests
 app.engine("ejs", ejsMate); // tell Express to use ejs-mate for .ejs files
-app.use(express.static(path.join(__dirname, "public"))); 
+app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
   secret: "mysecretsupercode",
@@ -41,15 +42,22 @@ const sessionOptions = {
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly : true, // set to true if using HTTPS
+    httpOnly: true, // set to true if using HTTPS
   },
 };
-
-app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
   res.send("Hello World from root");
 });
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) => { 
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next(); 
+})
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);

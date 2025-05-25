@@ -110,6 +110,10 @@ body {
 .btns {
   display: flex;
   justify-items: start;
-  gap:1rem;
+  gap: 1rem;
 }
 
+.flash-style {
+  display: flex;
+  justify-content: space-between;
+}
