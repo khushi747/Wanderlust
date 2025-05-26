@@ -26,8 +26,12 @@ const listingSchema = new schema({
       ref: "Review",
     },
   ],
+  owner: {
+    type: schema.Types.ObjectId,
+    ref: "User",
+  },
 });
- //Middleware to delete reviews when a listing is deleted
+//Middleware to delete reviews when a listing is deleted
 listingSchema.post("findOneAndDelete", async (listing) => {
   if (listing) {
     await Review.deleteMany({

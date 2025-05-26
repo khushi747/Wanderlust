@@ -28,6 +28,7 @@ const initDB = async () => {
       price: listing.price,
       location: listing.location,
       country: listing.country,
+      owner: "6832f09d4051d7967e0c9751", // Replace with actual owner ID
     };
   });
   console.log("Sample transformed item:", transformedData[0]);
