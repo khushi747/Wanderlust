@@ -18,7 +18,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL =
+  "mongodb+srv://khushi:RvBXfGWY0gVxCJjl@wanderlust.6tdrawv.mongodb.net/?retryWrites=true&w=majority&appName=Wanderlust";
 async function main() {
   console.log("Trying to connect to MongoDB...");
   await mongoose.connect(MONGO_URL);
