@@ -11,9 +11,9 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const Listing = require("./Models/listing");
-const Review = require("./Models/review");
-const User = require("./Models/user.js");
+const Review = require("./models/review");
+const Listing = require("./models/listing");
+const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
@@ -76,7 +76,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currentUser = req.user; // make currentUser available in all views 
+  res.locals.currentUser = req.user; // make currentUser available in all views
   next();
 });
 
