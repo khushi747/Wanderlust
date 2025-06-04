@@ -6,7 +6,7 @@ const { isLoggedIn } = require("../middleware.js");
 const { isOwner } = require("../middleware.js");
 const { validateListing } = require("../middleware.js");
 const Listing = require("../Models/listing");
-
+ 
 //INDEX ROUTE
 router.get(
   "/",
