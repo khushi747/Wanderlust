@@ -27,6 +27,9 @@ async function main() {
 main()
   .then(() => {
     console.log("Connected to MongoDB");
+    app.listen(8080, () => {
+      console.log("Server is running on port 8080");
+    });
   })
   .catch((err) => {
     console.log("Error connecting to MongoDB", err);
@@ -91,8 +94,4 @@ app.all(/(.*)/, (req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
-});
-
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
 });
