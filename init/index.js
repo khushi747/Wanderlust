@@ -20,7 +20,7 @@ const initDB = async () => {
   await Listing.deleteMany({});
   initData.data.map((obj) => ({
     ...obj,
-    owner: "6832f09d4051d7967e0c9751",
+    owner: "683fea959b18e4fd5d2f9734",
   }));
   const transformedData = initData.data.map((listing) => {
     return {
@@ -30,7 +30,7 @@ const initDB = async () => {
       price: listing.price,
       location: listing.location,
       country: listing.country,
-      owner: "6832f09d4051d7967e0c9751", // Replace with actual owner ID
+      owner: "683fea959b18e4fd5d2f9734", // Replace with actual owner ID
     };
   });
   console.log("Sample transformed item:", transformedData[0]);
