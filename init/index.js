@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const Listing = require("../models/listing");
 const initData = require("./data");
-
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL =
+  "mongodb+srv://khushi:RvBXfGWY0gVxCJjl@wanderlust.6tdrawv.mongodb.net/?retryWrites=true&w=majority&appName=Wanderlust";
 
 main()
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("✅ Connected to MongoDB");
+    initDB();
   })
-  .catch((err) => {});
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+  });
 
 async function main() {
   await mongoose.connect(MONGO_URL);
@@ -36,5 +39,3 @@ const initDB = async () => {
   await Listing.insertMany(transformedData);
   console.log("Database initialized with sample data");
 };
-
-initDB();
